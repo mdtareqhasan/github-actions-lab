@@ -9,6 +9,11 @@ on:
 jobs:
   basic-checkout:
     runs-on: ubuntu-latest
+
+    # Custom environment variable
+    env:
+      CUSTOM_MESSAGE: "Hello from GitHub Actions!"
+
     steps:
       # Step 1: Checkout the repository
       - name: Checkout repository
@@ -31,3 +36,24 @@ jobs:
           echo "Node version: $(node --version)"
           echo "Python version: $(python --version)"
           echo "Git version: $(git --version)"
+
+      # Step 5: Display system resources
+      - name: Show system resources
+        run: |
+          echo "Current date and time:"
+          date
+
+          echo "Available disk space:"
+          df -h
+
+          echo "Memory usage:"
+          free -m
+
+      # Step 6: Display custom environment variable
+      - name: Display custom message
+        run: echo "$CUSTOM_MESSAGE"
+
+      # Step 7: Conditional execution
+      - name: Conditional step
+        if: github.event_name == 'push'
+        run: echo "This was triggered by a push event"
