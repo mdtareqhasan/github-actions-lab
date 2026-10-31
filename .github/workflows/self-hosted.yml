@@ -1,0 +1,21 @@
+name: Self Hosted Runner Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-runner:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Runner Information
+        run: |
+          echo "Hostname: $HOSTNAME"
+          echo "User: $(whoami)"
+          echo "Directory: $PWD"
+          uname -a
